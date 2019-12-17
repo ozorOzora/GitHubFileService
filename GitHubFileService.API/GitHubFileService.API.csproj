@@ -8,9 +8,14 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Octokit" Version="0.36.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="4.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="4.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUi" Version="4.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GitHubFileService.Core\GitHubFileService.Core.csproj" />
   </ItemGroup>
 
 </Project>
