@@ -1,9 +1,9 @@
-﻿using GitHubFileService.Core.Attributes;
+﻿using OpenApiDocuments.Core.Attributes;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 using System;
 
-namespace GitHubFileService.Core.DAL
+namespace OpenApiDocuments.Core.DAL
 {
     /// <summary>
     /// Représente le DbContext permettant d'utiliser des données d'entités dans la base de donnée

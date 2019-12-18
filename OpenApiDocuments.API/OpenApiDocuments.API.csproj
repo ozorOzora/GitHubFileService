@@ -8,6 +8,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.OpenApi.Readers" Version="1.1.4" />
     <PackageReference Include="Octokit" Version="0.36.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="4.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="4.0.1" />
@@ -15,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GitHubFileService.Core\GitHubFileService.Core.csproj" />
+    <ProjectReference Include="..\OpenApiDocuments.Core\OpenApiDocuments.Core.csproj" />
   </ItemGroup>
 
 </Project>

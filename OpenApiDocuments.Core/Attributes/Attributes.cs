@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GitHubFileService.Core.Attributes
+namespace OpenApiDocuments.Core.Attributes
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
     public class BsonCollectionAttribute : Attribute
