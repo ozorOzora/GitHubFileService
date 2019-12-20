@@ -2,6 +2,8 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using Microsoft.OpenApi.Models;
+using MongoDB.Bson.Serialization.Options;
+using System.Collections.Generic;
 
 namespace OpenApiDocuments.Core.BO
 {
@@ -18,14 +20,14 @@ namespace OpenApiDocuments.Core.BO
         /// <summary>
         /// Identifiant du document
         /// </summary>
-        [BsonId]
         public ObjectId Id { get; set; }
 
         /// <summary>
         /// Document de spécifications
         /// </summary>
-        [BsonElement("openapidocument")]
-        public OpenApiDocument Info { get; set; }
+
+        public OpenApiDocument Content { get; set; }
 
     }
+
 }
