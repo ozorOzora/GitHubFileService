@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -26,7 +27,7 @@ namespace OpenApiDocuments.Controllers
                 await _documentManager.Collect();
                 return StatusCode((int)HttpStatusCode.OK);
             }
-            catch
+            catch(Exception ex)
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError);
             }

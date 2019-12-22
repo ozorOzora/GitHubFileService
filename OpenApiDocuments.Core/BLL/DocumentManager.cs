@@ -45,8 +45,17 @@ namespace OpenApiDocuments.Core.BLL
             {
                 if (treeItem.Type != TreeType.Blob) continue;
                 var file = await _gitHubService.GetFileContent(treeItem.Sha);
-                var openApiDocument = reader.Read(file, out var diagnostic);
-                CreateDocument(openApiDocument);
+
+                try // TODO: find a better way to keep iterating after reader error
+                {
+                    var openApiDocument = reader.Read(file, out var diagnostic);
+                    CreateDocument(openApiDocument);
+                }
+                catch
+                {
+                    continue;
+                }
+
             }
             return;
         }

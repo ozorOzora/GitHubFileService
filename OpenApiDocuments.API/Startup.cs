@@ -11,7 +11,6 @@ using OpenApiDocuments.Core.BLL;
 using OpenApiDocuments.Core.DAL;
 using OpenApiDocuments.Core.Services;
 using Swashbuckle.AspNetCore.Swagger;
-using System.Collections.Generic;
 
 namespace OpenApiDocuments
 {
@@ -42,6 +41,8 @@ namespace OpenApiDocuments
             // see https://stackoverflow.com/questions/56584655/c-sharp-mongodb-serialize-enum-dictionary-keys-to-string
             BsonSerializer.RegisterSerializer(new EnumSerializer<OperationType>(BsonType.String));
         }
+
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
