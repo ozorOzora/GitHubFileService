@@ -112,5 +112,17 @@ namespace OpenApiDocuments.Core.DAL
         /// </summary>
         /// <param name="match">Délégué Predicate qui définit les conditions des éléments à supprimer.</param>
         void Delete(Expression<Func<T, bool>> match);
+
+        /// <summary>
+        /// Créé un Single-field index pour le champ spécifié.
+        /// </summary>
+        /// <param name="field">Délégué Predicate qui définit les conditions des éléments à supprimer.</param>
+        void CreateSingleFieldIndex(Expression<Func<T, object>> field);
+
+        /// <summary>
+        /// Créé un Single-field index pour le champ spécifié.
+        /// </summary>
+        /// <param name="field">Chaine de caractère décrivant le champ à indexer.</param>
+        void CreateSingleFieldIndex(string field);
     }
 }

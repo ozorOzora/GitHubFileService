@@ -60,5 +60,10 @@ namespace OpenApiDocuments.Core.BLL
             return;
         }
 
+        public void CreateSingleFieldIndex()
+        {
+            _documentRepository.CreateSingleFieldIndex("Content.Servers.Url");
+        }
+
     }
 }

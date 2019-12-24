@@ -27,7 +27,21 @@ namespace OpenApiDocuments.Controllers
                 await _documentManager.Collect();
                 return StatusCode((int)HttpStatusCode.OK);
             }
-            catch(Exception ex)
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError);
+            }
+        }
+
+        [HttpGet("/create-index")]
+        public IActionResult CreateIndex()
+        {
+            try
+            {
+                _documentManager.CreateSingleFieldIndex();
+                return StatusCode((int)HttpStatusCode.OK);
+            }
+            catch (Exception ex)
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError);
             }

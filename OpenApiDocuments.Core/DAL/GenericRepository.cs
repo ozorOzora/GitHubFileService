@@ -186,5 +186,27 @@ namespace OpenApiDocuments.Core.DAL
         {
             _context.GetCollection<T>().DeleteMany(match);
         }
+
+        /// <summary>
+        /// Créé un Single-field index pour le champ spécifié.
+        /// </summary>
+        /// <param name="match">Délégué Predicate qui définit les conditions des éléments à supprimer.</param>
+        public void CreateSingleFieldIndex(Expression<Func<T, object>> field)
+        {
+            var _key = Builders<T>.IndexKeys.Ascending(field);
+            var indexModel = new CreateIndexModel<T>(_key);
+            _context.GetCollection<T>().Indexes.CreateOne(indexModel);
+        }
+
+        /// <summary>
+        /// Créé un Single-field index pour le champ spécifié.
+        /// </summary>
+        /// <param name="field">Chaine de caractère décrivant le champ à indexer.</param>
+        public void CreateSingleFieldIndex(string field)
+        {
+            var _key = Builders<T>.IndexKeys.Ascending(field);
+            var indexModel = new CreateIndexModel<T>(_key);
+            _context.GetCollection<T>().Indexes.CreateOne(indexModel);
+        }
     }
 }
