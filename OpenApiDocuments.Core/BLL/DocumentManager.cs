@@ -7,6 +7,7 @@ using OpenApiDocuments.Core.DAL;
 using OpenApiDocuments.Core.Services;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace OpenApiDocuments.Core.BLL
@@ -53,11 +54,12 @@ namespace OpenApiDocuments.Core.BLL
             foreach (TreeItem treeItem in (List<TreeItem>)tree)
             {
                 if (treeItem.Type != TreeType.Blob) continue;
-                var file = await _gitHubService.GetFileContent(treeItem.Sha);
-
+                var data = await _gitHubService.GetFileContent(treeItem.Sha);
+                string decodedString = Encoding.UTF8.GetString(data);
                 try // TODO: find a better way to keep iterating after reader error
                 {
-                    var openApiDocument = reader.Read(file, out var diagnostic);
+                    var openApiDocument = reader.Read(decodedString, out var diagnostic);
+                    _documentRepository.UploadFile("test", data);
                     CreateDocument(openApiDocument);
                 }
                 catch

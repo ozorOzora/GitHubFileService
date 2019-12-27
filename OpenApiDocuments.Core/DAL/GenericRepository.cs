@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.GridFS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -196,6 +197,17 @@ namespace OpenApiDocuments.Core.DAL
         public void Delete(Expression<Func<T, bool>> match)
         {
             _context.GetCollection<T>().DeleteMany(match);
+        }
+
+        /// <summary>
+        /// Enregistre un fichier depuis un bytes array 
+        /// </summary>
+        /// <param name="filename">Nom du fichier à enregister</param>
+        /// <param name="file">Fichier représenté sous la forme d'un tableau d'octets</param>
+        public void UploadFile(string filename, byte[] file)
+        {
+            var bucket = _context.GetBucket();
+            var id = bucket.UploadFromBytes(filename, file);
         }
 
         /// <summary>

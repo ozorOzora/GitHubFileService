@@ -32,7 +32,7 @@ namespace OpenApiDocuments.Core.Services
             return tree.Tree;
         }
 
-        public async Task<String> GetFileContent(string sha)
+        public async Task<byte[]> GetFileContent(string sha)
         {
             var github = new GitHubClient(new ProductHeaderValue("GitHubFileService"))
             {
@@ -42,8 +42,7 @@ namespace OpenApiDocuments.Core.Services
             if (blob.Encoding == EncodingType.Base64)
             {
                 byte[] data = System.Convert.FromBase64String(blob.Content);
-                string decodedString = Encoding.UTF8.GetString(data);
-                return decodedString;
+                return data;
             }
             else
             {

@@ -122,6 +122,13 @@ namespace OpenApiDocuments.Core.DAL
         void Delete(Expression<Func<T, bool>> match);
 
         /// <summary>
+        /// Enregistre un fichier depuis un bytes array 
+        /// </summary>
+        /// <param name="filename">Nom du fichier à enregister</param>
+        /// <param name="file">Fichier représenté sous la forme d'un tableau d'octets</param>
+        void UploadFile(string filename, byte[] file);
+
+        /// <summary>
         /// Créé un Single-field index pour le champ spécifié.
         /// </summary>
         /// <param name="field">Délégué Predicate qui définit les conditions des éléments à supprimer.</param>
