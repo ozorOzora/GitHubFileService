@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.OpenApi.Models;
+﻿using Microsoft.OpenApi.Models;
 using Microsoft.OpenApi.Readers;
+using MongoDB.Driver;
 using Octokit;
 using OpenApiDocuments.Core.BO;
 using OpenApiDocuments.Core.DAL;
 using OpenApiDocuments.Core.Services;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace OpenApiDocuments.Core.BLL
 {
@@ -35,6 +36,14 @@ namespace OpenApiDocuments.Core.BLL
             {
                 throw;
             }
+        }
+
+        public List<Document> FindAll()
+        {
+            // see https://stackoverflow.com/questions/40164908/mongodb-and-c-sharp-find
+            // or https://www.codementor.io/@pmbanugo/working-with-mongodb-in-net-2-retrieving-mrlbeanm5
+            var filter = Builders<Document>.Filter.Eq("Content.Servers.Url", "https://cal-test.adyen.com/cal/services/Notification/v1");
+            return _documentRepository.FindAll(filter);
         }
 
         public async Task Collect()

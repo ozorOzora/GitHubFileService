@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -25,6 +27,12 @@ namespace OpenApiDocuments.Core.DAL
         /// <param name="includes">Délégué Predicate qui définit les liaisons des éléments à charger.</param>
         /// <returns>Premier élément qui correspond aux conditions définies par le prédicat spécifié, s'il est trouvé ; sinon, la valeur par défaut pour le type T.</returns>
         T Find(Expression<Func<T, bool>> match, params Expression<Func<T, object>>[] includes);
+
+        /// Récupère tous les éléments qui correspondent au filtre spécifié.
+        /// </summary>
+        /// <param name="filter">Représentant le filtre à appliquer.</param>
+        /// <returns>Liste contenant tous les éléments qui correspondent aux conditions définies par le prédicat spécifié, si une correspondance est trouvée ; sinon, un IEnumerable vide.</returns>
+        List<T> FindAll(FilterDefinition<T> filter);
 
         /// <summary>
         /// Récupère tous les éléments qui correspondent aux conditions définies par le prédicat spécifié.

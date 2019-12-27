@@ -47,5 +47,19 @@ namespace OpenApiDocuments.Controllers
             }
         }
 
+        [HttpGet()]
+        public IActionResult GetByUrl()
+        {
+            try
+            {
+                var results = _documentManager.FindAll();
+                return StatusCode((int)HttpStatusCode.OK);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError);
+            }
+        }
+
     }
 }

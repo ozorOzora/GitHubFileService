@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,6 +43,16 @@ namespace OpenApiDocuments.Core.DAL
         public T Find(Expression<Func<T, bool>> match, params Expression<Func<T, object>>[] includes)
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Récupère tous les éléments qui correspondent au filtre spécifié.
+        /// </summary>
+        /// <param name="filter">Représentant le filtre à appliquer.</param>
+        /// <returns>Liste contenant tous les éléments qui correspondent aux conditions définies par le prédicat spécifié, si une correspondance est trouvée ; sinon, un IEnumerable vide.</returns>
+        public List<T> FindAll(FilterDefinition<T> filter)
+        {
+            return _context.GetCollection<T>().Find(filter).ToList();
         }
 
         /// <summary>
