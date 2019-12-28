@@ -8,6 +8,7 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using OpenApiDocuments.Core.BLL;
+using OpenApiDocuments.Core.BO;
 using OpenApiDocuments.Core.DAL;
 using OpenApiDocuments.Core.Services;
 using Swashbuckle.AspNetCore.Swagger;
@@ -36,10 +37,12 @@ namespace OpenApiDocuments
             services.AddTransient<GitHubService>();
             services.AddTransient<DocumentManager>();
             services.AddTransient<IDocumentRepository, DocumentRepository>();
+            services.AddTransient<IDocumentMetadataRepository, DocumentMetadataRepository>();
             services.AddTransient<MongoDbContext>();
 
             // see https://stackoverflow.com/questions/56584655/c-sharp-mongodb-serialize-enum-dictionary-keys-to-string
             BsonSerializer.RegisterSerializer(new EnumSerializer<OperationType>(BsonType.String));
+            BsonClassMap.RegisterClassMap<DocumentMetadata>();
         }
 
 

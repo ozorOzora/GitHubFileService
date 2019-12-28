@@ -202,12 +202,16 @@ namespace OpenApiDocuments.Core.DAL
         /// <summary>
         /// Enregistre un fichier depuis un bytes array 
         /// </summary>
-        /// <param name="filename">Nom du fichier à enregister</param>
-        /// <param name="file">Fichier représenté sous la forme d'un tableau d'octets</param>
-        public void UploadFile(string filename, byte[] file)
+        /// <param name="fileContent">Contenu du fichier représenté sous la forme d'un tableau d'octets</param>
+        /// <param name="metadata">Métadonnées pour le fichier à enregistrer</param>
+        public void UploadFile(byte[] fileContent, T metadata = null)
         {
+            var options = new GridFSUploadOptions
+            {
+                Metadata = metadata.ToBsonDocument()
+            };
             var bucket = _context.GetBucket();
-            var id = bucket.UploadFromBytes(filename, file);
+            var id = bucket.UploadFromBytes("", fileContent, metadata == null ? null : options);
         }
 
         /// <summary>
