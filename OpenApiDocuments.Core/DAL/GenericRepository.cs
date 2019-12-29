@@ -24,6 +24,12 @@ namespace OpenApiDocuments.Core.DAL
         {
             _context = context;
         }
+        public List<T> Find(string test)
+        {
+            var filter = Builders<T>.Filter.Text("adyen");
+            var match = _context.GetCollection<T>().Find(filter).ToList();
+            return match;
+        }
 
         /// <summary>
         /// Recherche un élément qui correspond aux conditions définies par le prédicat spécifié et retourne la première occurrence.
@@ -203,7 +209,7 @@ namespace OpenApiDocuments.Core.DAL
         /// Enregistre un fichier depuis un bytes array 
         /// </summary>
         /// <param name="fileContent">Contenu du fichier représenté sous la forme d'un tableau d'octets</param>
-        /// <param name="metadata">Métadonnées pour le fichier à enregistrer</param>
+        /// <param name="metadata">Métadonnées du fichier à enregistrer</param>
         public void UploadFile(byte[] fileContent, T metadata = null)
         {
             var options = new GridFSUploadOptions
@@ -217,13 +223,14 @@ namespace OpenApiDocuments.Core.DAL
         /// <summary>
         /// Créé un Single-field index pour le champ spécifié.
         /// </summary>
-        /// <param name="match">Délégué Predicate qui définit les conditions des éléments à supprimer.</param>
+        /// <param name="field">Expression qui définit le champ à indexer.</param>
         public void CreateSingleFieldIndex(Expression<Func<T, object>> field)
         {
-            var _key = Builders<T>.IndexKeys.Ascending(field);
-            var indexModel = new CreateIndexModel<T>(_key);
+            var keys = Builders<T>.IndexKeys.Ascending(field);
+            var indexModel = new CreateIndexModel<T>(keys);
             _context.GetCollection<T>().Indexes.CreateOne(indexModel);
         }
+
 
         /// <summary>
         /// Créé un Single-field index pour le champ spécifié.
@@ -231,8 +238,30 @@ namespace OpenApiDocuments.Core.DAL
         /// <param name="field">Chaine de caractère décrivant le champ à indexer.</param>
         public void CreateSingleFieldIndex(string field)
         {
-            var _key = Builders<T>.IndexKeys.Ascending(field);
-            var indexModel = new CreateIndexModel<T>(_key);
+            var keys = Builders<T>.IndexKeys.Ascending(field);
+            var indexModel = new CreateIndexModel<T>(keys);
+            _context.GetCollection<T>().Indexes.CreateOne(indexModel);
+        }
+
+        /// <summary>
+        /// Créé un text index pour le champ spécifié.
+        /// </summary>
+        /// <param name="field">Expression qui définit le champ à indexer.</param>
+        public void CreateTextIndex(string field)
+        {
+            var keys = Builders<T>.IndexKeys.Text(field);
+            var indexModel = new CreateIndexModel<T>(keys);
+            _context.GetCollection<T>().Indexes.CreateOne(indexModel);
+        }
+
+        /// <summary>
+        /// Créé un text index pour le champ spécifié.
+        /// </summary>
+        /// <param name="field">Expression qui définit le champ à indexer.</param>
+        public void CreateTextIndex(Expression<Func<T, object>> field)
+        {
+            var keys = Builders<T>.IndexKeys.Text(field);
+            var indexModel = new CreateIndexModel<T>(keys);
             _context.GetCollection<T>().Indexes.CreateOne(indexModel);
         }
     }

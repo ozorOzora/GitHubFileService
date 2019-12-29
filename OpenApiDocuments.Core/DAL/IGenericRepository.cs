@@ -125,7 +125,7 @@ namespace OpenApiDocuments.Core.DAL
         /// Enregistre un fichier depuis un bytes array 
         /// </summary>
         /// <param name="fileContent">Contenu du fichier représenté sous la forme d'un tableau d'octets</param>
-        /// <param name="metadata">Métadonnées pour le fichier à enregistrer</param>
+        /// <param name="metadata">Métadonnées du fichier à enregistrer</param>
         void UploadFile(byte[] fileContent, T metadata);
 
         /// <summary>
@@ -139,5 +139,24 @@ namespace OpenApiDocuments.Core.DAL
         /// </summary>
         /// <param name="field">Chaine de caractère décrivant le champ à indexer.</param>
         void CreateSingleFieldIndex(string field);
+
+        /// <summary>
+        /// Créé un text index pour le champ spécifié.
+        /// </summary>
+        /// <param name="field">Expression qui définit le champ à indexer.</param>
+        void CreateTextIndex(string field);
+
+        /// <summary>
+        /// Créé un text index pour le champ spécifié.
+        /// </summary>
+        /// <param name="field">Expression qui définit le champ à indexer.</param>
+        void CreateTextIndex(Expression<Func<T, object>> field);
+
+        /// <summary>
+        /// Trouve.
+        /// </summary>
+        /// <param name="test"></param>
+        /// <returns></returns>
+        List<T> Find(string test);
     }
 }

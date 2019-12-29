@@ -33,12 +33,12 @@ namespace OpenApiDocuments.Controllers
             }
         }
 
-        [HttpGet("/create-index")]
-        public IActionResult CreateIndex()
+        [HttpGet("/create-text-index")]
+        public IActionResult CreateTextIndex()
         {
             try
             {
-                _documentManager.CreateSingleFieldIndex();
+                _documentManager.CreateTextIndex();
                 return StatusCode((int)HttpStatusCode.OK);
             }
             catch (Exception ex)
@@ -47,19 +47,18 @@ namespace OpenApiDocuments.Controllers
             }
         }
 
-        [HttpGet()]
-        public IActionResult GetByUrl()
+        [HttpGet("/search")]
+        public IActionResult Search()
         {
             try
             {
-                var results = _documentManager.FindAll();
+                var results = _documentManager.Find();
                 return StatusCode((int)HttpStatusCode.OK);
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError);
             }
         }
-
     }
 }

@@ -1,9 +1,6 @@
 ﻿using OpenApiDocuments.Core.Attributes;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using Microsoft.OpenApi.Models;
-using MongoDB.Bson.Serialization.Options;
-using System.Collections.Generic;
 
 namespace OpenApiDocuments.Core.BO
 {
@@ -12,7 +9,7 @@ namespace OpenApiDocuments.Core.BO
     /// </summary>
     [BsonDiscriminator(RootClass = true)]
     [BsonIgnoreExtraElements]
-    [BsonCollection("documents")]
+    [BsonCollection("files.files")]
     public class Document
     {
         public Document() { }
@@ -20,14 +17,14 @@ namespace OpenApiDocuments.Core.BO
         /// <summary>
         /// Identifiant du document
         /// </summary>
+        [BsonId]
         public ObjectId Id { get; set; }
 
         /// <summary>
-        /// Document de spécifications
+        /// 
         /// </summary>
-
-        public OpenApiDocument Content { get; set; }
-
+        [BsonElement("metadata")]
+        public DocumentMetadata Metadata { get; set; }
     }
 
 }
