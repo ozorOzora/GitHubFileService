@@ -61,7 +61,7 @@ namespace OpenApiDocuments.Core.BLL
 
         public void CreateTextIndex()
         {
-            _documentRepository.CreateTextIndex("metadata.Servers");
+            _documentRepository.CreateTextIndex("metadata.Servers", "metadata.Title", "metadata.Description");
         }
     }
 }

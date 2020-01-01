@@ -247,9 +247,10 @@ namespace OpenApiDocuments.Core.DAL
         /// Créé un text index pour le champ spécifié.
         /// </summary>
         /// <param name="field">Expression qui définit le champ à indexer.</param>
-        public void CreateTextIndex(string field)
+        public void CreateTextIndex(params string[] fields)
         {
-            var keys = Builders<T>.IndexKeys.Text(field);
+            var definitions = fields.Select(f => Builders<T>.IndexKeys.Text(f));
+            var keys = Builders<T>.IndexKeys.Combine(definitions);
             var indexModel = new CreateIndexModel<T>(keys);
             _context.GetCollection<T>().Indexes.CreateOne(indexModel);
         }
@@ -258,9 +259,10 @@ namespace OpenApiDocuments.Core.DAL
         /// Créé un text index pour le champ spécifié.
         /// </summary>
         /// <param name="field">Expression qui définit le champ à indexer.</param>
-        public void CreateTextIndex(Expression<Func<T, object>> field)
+        public void CreateTextIndex(params Expression<Func<T, object>>[] fields)
         {
-            var keys = Builders<T>.IndexKeys.Text(field);
+            var definitions = fields.Select(f => Builders<T>.IndexKeys.Text(f));
+            var keys = Builders<T>.IndexKeys.Combine(definitions);
             var indexModel = new CreateIndexModel<T>(keys);
             _context.GetCollection<T>().Indexes.CreateOne(indexModel);
         }

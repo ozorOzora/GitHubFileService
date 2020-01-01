@@ -144,13 +144,13 @@ namespace OpenApiDocuments.Core.DAL
         /// Créé un text index pour le champ spécifié.
         /// </summary>
         /// <param name="field">Expression qui définit le champ à indexer.</param>
-        void CreateTextIndex(string field);
+        void CreateTextIndex(params string[] field);
 
         /// <summary>
         /// Créé un text index pour le champ spécifié.
         /// </summary>
         /// <param name="field">Expression qui définit le champ à indexer.</param>
-        void CreateTextIndex(Expression<Func<T, object>> field);
+        void CreateTextIndex(params Expression<Func<T, object>>[] field);
 
         /// <summary>
         /// Trouve.
