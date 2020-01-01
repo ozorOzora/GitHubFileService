@@ -10,7 +10,8 @@ namespace OpenApiDocuments.API
         {
             CreateMap<Document, DocumentViewModel>()
                 .ForMember(x => x.Title, x => x.MapFrom(d => d.Metadata.Title))
-                .ForMember(x => x.Description, x => x.MapFrom(d => d.Metadata.Description));
+                .ForMember(x => x.Description, x => x.MapFrom(d => d.Metadata.Description))
+                .ForMember(x => x.Servers, x => x.MapFrom(d => d.Metadata.Servers));
         }
     }
 }

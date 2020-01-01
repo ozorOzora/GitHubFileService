@@ -26,9 +26,9 @@ namespace OpenApiDocuments.Core.BLL
             _gitHubService = gitHubService;
         }
 
-        public List<Document> Find()
+        public List<Document> Find(string query)
         {
-            return _documentRepository.Find("test");
+            return _documentRepository.Find(query);
         }
 
         public async Task Collect()
@@ -43,7 +43,8 @@ namespace OpenApiDocuments.Core.BLL
                 try // TODO: find a better way to keep iterating after reader error
                 {
                     var openApiDocument = reader.Read(decodedString, out var diagnostic);
-                    var documentMetadata = new DocumentMetadata {
+                    var documentMetadata = new DocumentMetadata
+                    {
                         Title = openApiDocument.Info.Title,
                         Description = openApiDocument.Info.Description,
                         Servers = openApiDocument.Servers.Select(s => s.Url).ToList(),
@@ -51,7 +52,7 @@ namespace OpenApiDocuments.Core.BLL
                     };
                     _documentMetadataRepository.UploadFile(fileContent, documentMetadata);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     continue;
                 }

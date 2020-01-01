@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using OpenApiDocuments.API.ViewModels;
 using OpenApiDocuments.Core.BLL;
 
 namespace OpenApiDocuments.Controllers
@@ -12,9 +15,11 @@ namespace OpenApiDocuments.Controllers
     public class DocumentController : ControllerBase
     {
         private readonly DocumentManager _documentManager;
+        private readonly IMapper _mapper;
 
-        public DocumentController(ILogger<DocumentController> logger, DocumentManager documentManager)
+        public DocumentController(ILogger<DocumentController> logger, DocumentManager documentManager, IMapper mapper)
         {
+            _mapper = mapper;
             _documentManager = documentManager;
         }
 
@@ -48,12 +53,18 @@ namespace OpenApiDocuments.Controllers
         }
 
         [HttpGet("/search")]
-        public IActionResult Search()
+        public IActionResult Search([FromQuery] string query)
         {
             try
             {
-                var results = _documentManager.Find();
-                return StatusCode((int)HttpStatusCode.OK);
+                /// Traitement
+                var documents = _documentManager.Find(query);
+
+                /// Création du modèle de vue
+                var resultViewModel = documents.Select(d => _mapper.Map<DocumentViewModel>(d));
+
+                /// Restitution
+                return StatusCode((int)HttpStatusCode.OK, resultViewModel);
             }
             catch(Exception ex)
             {

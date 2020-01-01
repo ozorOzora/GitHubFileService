@@ -19,5 +19,9 @@ namespace OpenApiDocuments.API.ViewModels
 
         [JsonProperty("description")]
         public string Description { get; set; }
+
+        [JsonProperty("servers")]
+        public string[] Servers { get; set; }
+
     }
 }

@@ -24,9 +24,9 @@ namespace OpenApiDocuments.Core.DAL
         {
             _context = context;
         }
-        public List<T> Find(string test)
+        public List<T> Find(string query)
         {
-            var filter = Builders<T>.Filter.Text("adyen");
+            var filter = Builders<T>.Filter.Text(query);
             var match = _context.GetCollection<T>().Find(filter).ToList();
             return match;
         }

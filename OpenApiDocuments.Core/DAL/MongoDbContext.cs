@@ -33,7 +33,7 @@ namespace OpenApiDocuments.Core.DAL
             if (_bucket == null)
                 _bucket = new GridFSBucket(_db, new GridFSBucketOptions
                 {
-                    BucketName = "files",
+                    BucketName = "documents",
                     ChunkSizeBytes = 1048576, // 1MB
                     WriteConcern = WriteConcern.WMajority,
                     ReadPreference = ReadPreference.Secondary

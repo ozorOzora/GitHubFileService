@@ -9,7 +9,7 @@ namespace OpenApiDocuments.Core.BO
     /// </summary>
     [BsonDiscriminator(RootClass = true)]
     [BsonIgnoreExtraElements]
-    [BsonCollection("files.files")]
+    [BsonCollection("documents.files")]
     public class Document
     {
         public Document() { }
