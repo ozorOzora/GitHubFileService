@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -7,6 +8,7 @@ using Microsoft.OpenApi.Models;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
+using OpenApiDocuments.API;
 using OpenApiDocuments.Core.BLL;
 using OpenApiDocuments.Core.BO;
 using OpenApiDocuments.Core.DAL;
@@ -28,6 +30,7 @@ namespace OpenApiDocuments
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddAutoMapper(typeof(MappingProfile)); // since 9.0, use injection: https://docs.automapper.org/en/stable/9.0-Upgrade-Guide.html
 
             services.AddSwaggerGen(c =>
             {
@@ -44,8 +47,6 @@ namespace OpenApiDocuments
             BsonSerializer.RegisterSerializer(new EnumSerializer<OperationType>(BsonType.String));
             BsonClassMap.RegisterClassMap<DocumentMetadata>();
         }
-
-
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
